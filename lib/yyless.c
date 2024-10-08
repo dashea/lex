@@ -1,4 +1,4 @@
-yyless(x)
+int yyless(int x)
 {
 extern char yytext[];
 register char *lastch, *ptr;

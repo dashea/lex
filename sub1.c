@@ -1,7 +1,7 @@
+#include <stdarg.h>
 # include "ldefs.c"
-getl(p)	/* return next line of input, throw away trailing '\n' */
+char * getl(char *p)	/* return next line of input, throw away trailing '\n' */
 	/* returns 0 if eof is had immediately */
-  char *p;
 	{
 	register int c;
 	register char *s, *t;
@@ -14,7 +14,7 @@ getl(p)	/* return next line of input, throw away trailing '\n' */
 	pres = '\n';
 	return(s);
 	}
-space(ch)
+int space(char ch)
 	{
 	switch(ch)
 		{
@@ -26,16 +26,19 @@ space(ch)
 	return(0);
 	}
 
-digit(c)
+int digit(char c)
 {
 	return(c>='0' && c <= '9');
 }
-error(s,p,d)
+void error(const char *s, ...)
 	{
+        va_list ap;
+        va_start(ap, s);
 	if(!eof)fprintf(errorf,"%d: ",yyline);
 	fprintf(errorf,"(Error) ");
-	fprintf(errorf,s,p,d);
+	vfprintf(errorf,s,ap);
 	putc('\n',errorf);
+        va_end(ap);
 # ifdef DEBUG
 	if(debug && sect != ENDSECTION) {
 		sect1dump();
@@ -50,18 +53,20 @@ error(s,p,d)
 	exit(1);	/* error return code */
 	}
 
-warning(s,p,d)
+void warning(const char *s,...)
 	{
+        va_list ap;
+        va_start(ap, s);
 	if(!eof)fprintf(errorf,"%d: ",yyline);
 	fprintf(errorf,"(Warning) ");
-	fprintf(errorf,s,p,d);
+	vfprintf(errorf,s,ap);
 	putc('\n',errorf);
+        va_end(ap);
 	fflush(errorf);
 	fflush(fout);
 	fflush(stdout);
 	}
-index(a,s)
-	char *s;
+int index(char a,char *s)
 {
 	register int k;
 	for(k=0; s[k]; k++)
@@ -70,8 +75,8 @@ index(a,s)
 	return(-1);
 	}
 
-alpha(c)
-  int c; {
+int alpha(char c)
+  {
 # ifdef ASCII
 return('a' <= c && c <= 'z' || 'A' <= c && c <= 'Z');
 # endif
@@ -79,7 +84,7 @@ return('a' <= c && c <= 'z' || 'A' <= c && c <= 'Z');
 return(index(c,"abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") >= 0);
 # endif
 }
-printable(c)
+int printable(char c)
 {
 # ifdef ASCII
 return( c>040 && c < 0177);
@@ -88,7 +93,7 @@ return( c>040 && c < 0177);
 return(index(c, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,;:><+*)('&%!-=\"")>=0);
 # endif
 }
-lgate()
+void lgate(void)
 {
 	char fname[20];
 	if (lgatflg) return;
@@ -103,15 +108,15 @@ lgate()
 	}
 /* scopy(ptr to str, ptr to str) - copy first arg str to second */
 /* returns ptr to second arg */
-scopy(s,t)
-  char *s, *t; {
+void scopy(char *s,char *t)
+  {
 	register char *i;
 	i = t;
 	while(*i++ = *s++);
 	return;
 	}
-siconv(t)	/* convert string t, return integer value */
-  char *t; {
+int siconv(char *t)	/* convert string t, return integer value */
+  {
 	register int i,sw;
 	register char *s;
 	s = t;
@@ -128,8 +133,8 @@ siconv(t)	/* convert string t, return integer value */
 	}
 /* slength(ptr to str) - return integer length of string arg */
 /* excludes '\0' terminator */
-slength(s)
-  char *s; {
+int slength(char *s)
+  {
 	register int n;
 	register char *t;
 	t = s;
@@ -139,8 +144,8 @@ slength(s)
 /* scomp(x,y) - return -1 if x < y,
 		0 if x == y,
 		return 1 if x > y, all lexicographically */
-scomp(x,y)
-  char *x,*y; {
+int scomp(char *x,char *y)
+  {
 	register char *a,*d;
 	a = x;
 	d = y;
@@ -154,8 +159,7 @@ scomp(x,y)
 		}
 	return(0);	/* equal */
 	}
-ctrans(ss)
-	char **ss;
+int ctrans(char **ss)
 {
 	register int c, k;
 	if ((c = **ss) != '\\')
@@ -180,8 +184,8 @@ ctrans(ss)
 	}
 	return(c);
 }
-cclinter(sw)
-  int sw; {
+void cclinter(int sw)
+  {
 		/* sw = 1 ==> ccl */
 	register int i, j, k;
 	int m;
@@ -235,8 +239,8 @@ cclinter(sw)
 		}
 	return;
 	}
-usescape(c)
-  int c; {
+int usescape(int c)
+  {
 	register char d;
 	switch(c){
 	case 'n': c = '\n'; break;
@@ -255,9 +259,8 @@ usescape(c)
 	}
 	return(c);
 	}
-lookup(s,t)
-  char *s;
-  char **t; {
+int lookup(char *s,char **t)
+  {
 	register int i;
 	i = 0;
 	while(*t){
@@ -268,7 +271,7 @@ lookup(s,t)
 		}
 	return(-1);
 	}
-cpyact(){ /* copy C action to the next ; or closing } */
+int cpyact(void){ /* copy C action to the next ; or closing } */
 	register int brac, c, mth;
 	int savline, sw;
 
@@ -364,7 +367,7 @@ loop:
 	}
 error("Premature EOF");
 }
-gch(){
+int gch(void){
 	register int c;
 	prev = pres;
 	c = pres = peek;
@@ -386,8 +389,7 @@ gch(){
 	if(c == '\n')yyline++;
 	return(c);
 	}
-mn2(a,d,c)
-  int a,d,c;
+int mn2(int a,int d,int c)
 	{
 	name[tptr] = a;
 	left[tptr] = d;
@@ -422,8 +424,7 @@ mn2(a,d,c)
 		error("Parse tree too big %s",(treesize == TREESIZE?"\nTry using %e num":""));
 	return(tptr++);
 	}
-mn1(a,d)
-  int a,d;
+int mn1(int a,int d)
 	{
 	name[tptr] = a;
 	left[tptr] = d;
@@ -460,8 +461,7 @@ mn1(a,d)
 		error("Parse tree too big %s",(treesize == TREESIZE?"\nTry using %e num":""));
 	return(tptr++);
 	}
-mn0(a)
-  int a;
+int mn0(int a)
 	{
 	name[tptr] = a;
 	parent[tptr] = 0;
@@ -478,9 +478,8 @@ mn0(a)
 		error("Parse tree too big %s",(treesize == TREESIZE?"\nTry using %e num":""));
 	return(tptr++);
 	}
-munput(t,p)	/* implementation dependent */
-  char *p;
-  int t; {
+void munput(char *t,int p)	/* implementation dependent */
+  {
 	register int i,j;
 	if(t == 'c'){
 		*pushptr++ = peek;		/* watch out for this */
@@ -501,8 +500,8 @@ munput(t,p)	/* implementation dependent */
 	return;
 	}
 
-dupl(n)
-  int n; {
+int dupl(int n)
+  {
 	/* duplicate the subtree whose root is n, return ptr to it */
 	register int i;
 	i = name[n];
@@ -526,8 +525,8 @@ dupl(n)
 	return(0);
 	}
 # ifdef DEBUG
-allprint(c)
-  char c; {
+void allprint(char c)
+  {
 	switch(c){
 		case 014:
 			printf("\\f");
@@ -560,8 +559,8 @@ allprint(c)
 	charc++;
 	return;
 	}
-strpt(s)
-  char *s; {
+void strpt(char *s)
+  {
 	charc = 0;
 	while(*s){
 		allprint(*s++);
@@ -572,7 +571,7 @@ strpt(s)
 		}
 	return;
 	}
-sect1dump(){
+void sect1dump(void){
 	register int i;
 	printf("Sect 1:\n");
 	if(def[0]){
@@ -599,11 +598,11 @@ sect1dump(){
 			}
 		}
 	}
-sect2dump(){
+void sect2dump(void){
 	printf("Sect 2:\n");
 	treedump();
 	}
-treedump()
+int treedump(void)
 	{
 	register int t;
 	register char *p;

@@ -158,5 +158,6 @@ extern int optim;
 extern int *verify, *advance, *stoff;
 extern int scon;
 extern char *psave;
-extern char *calloc(), *myalloc();
-extern int buserr(), segviol();
+extern char *myalloc(int, int);
+extern void buserr(void);
+extern void segviol(void);

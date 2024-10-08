@@ -209,7 +209,7 @@ r:	CHAR
 	={	$$ = mn0(RNULLS); }
 	;
 %%
-yylex(){
+int yylex(void){
 	register char *p;
 	register int c, i;
 	char  *t, *xp;
@@ -685,8 +685,8 @@ yylex(){
 	}
 /* end of yylex */
 # ifdef DEBUG
-freturn(i)
-  int i; {
+int freturn(int i)
+  {
 	if(yydebug) {
 		printf("now return ");
 		if(i < NCH) allprint(i);

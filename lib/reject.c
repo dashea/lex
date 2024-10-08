@@ -1,6 +1,6 @@
 # include <stdio.h>
 extern struct {int *yyaa, *yybb; int *yystops;} *yylstate [], **yylsp, **yyolsp;
-yyreject ()
+int yyreject (void)
 {
 extern FILE *yyout, *yyin;
 extern int yyprevious , *yyfnd;
@@ -24,7 +24,7 @@ yyoutput(yyprevious = yyinput());
 yyleng=0;
 return(-1);
 }
-yyracc(m)
+int yyracc(int m)
 {
 yyolsp = yylsp;
 if (yyextra[m])

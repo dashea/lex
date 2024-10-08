@@ -1,6 +1,5 @@
 # include "ldefs.c"
-cfoll(v)
-	int v;
+void cfoll(int v)
 	{
 	register int i,j,k;
 	char *p;
@@ -70,7 +69,7 @@ cfoll(v)
 	return;
 	}
 # ifdef DEBUG
-pfoll()
+void pfoll(void)
 	{
 	register int i,k,*p;
 	int j;
@@ -89,9 +88,8 @@ pfoll()
 	return;
 	}
 # endif
-add(array,n)
-  int **array;
-  int n; {
+void add(int **array,int n)
+  {
 	register int i, *temp;
 	register char *ctemp;
 	temp = nxtpos;
@@ -106,8 +104,7 @@ add(array,n)
 		error("Too many positions %s",(maxpos== MAXPOS?"\nTry using %p num":""));
 	return;
 	}
-follow(v)
-  int v;
+void follow(int v)
 	{
 	register int p;
 	if(v >= tptr-1)return;
@@ -146,8 +143,8 @@ follow(v)
 		}
 	return;
 	}
-first(v)	/* calculate set of positions with v as root which can be active initially */
-  int v; {
+void first(int v)	/* calculate set of positions with v as root which can be active initially */
+  {
 	register int i;
 	register char *p;
 	i = name[v];
@@ -191,7 +188,7 @@ first(v)	/* calculate set of positions with v as root which can be active initia
 		}
 	return;
 	}
-cgoto(){
+void cgoto(void){
 	register int i, j, s;
 	int npos, curpos, n;
 	int tryit;
@@ -308,8 +305,8 @@ cgoto(){
 	}
 	/*	Beware -- 70% of total CPU time is spent in this subroutine -
 		if you don't believe me - try it yourself ! */
-nextstate(s,c)
-  int s,c; {
+void nextstate(int s,int c)
+  {
 	register int j, *newpos;
 	register char *temp, *tz;
 	int *pos, i, *f, num, curpos, number;
@@ -342,8 +339,8 @@ nextstate(s,c)
 	count = j;
 	return;
 	}
-notin(n)
-  int n;	{	/* see if tmpstat occurs previously */
+int notin(int n)
+  {	/* see if tmpstat occurs previously */
 	register int *j,k;
 	register char *temp;
 	int i;
@@ -361,9 +358,8 @@ notin(n)
 		}
 	return(-1);
 	}
-packtrans(st,tch,tst,cnt,tryit)
-  int st, *tst, cnt,tryit;
-  char *tch; {
+void packtrans(int st,char *tch,int *tst,int cnt,int tryit)
+  {
 	/* pack transitions into nchar, nexts */
 	/* nchar is terminated by '\0', nexts uses cnt, followed by elements */
 	/* gotof[st] = index into nchr, nexts for state st */
@@ -524,8 +520,8 @@ nopack:
 	return;
 	}
 # ifdef DEBUG
-pstate(s)
-  int s; {
+void pstate(int s)
+  {
 	register int *p,i,j;
 	printf("State %d:\n",s);
 	p = state[s];
@@ -540,9 +536,8 @@ pstate(s)
 	return;
 	}
 # endif
-member(d,t)
-  int d;
-  char *t;	{
+int member(int d,char *t)
+  {
 	register int c;
 	register char *s;
 	c = d;
@@ -553,8 +548,8 @@ member(d,t)
 	return(0);
 	}
 # ifdef DEBUG
-stprt(i)
-  int i; {
+void stprt(int i)
+  {
 	register int p, t;
 	printf("State %d:",i);
 	/* print actions, if any */
@@ -585,8 +580,8 @@ stprt(i)
 	return;
 	}
 # endif
-acompute(s)	/* compute action list = set of poss. actions */
-  int s; {
+void acompute(int s)	/* compute action list = set of poss. actions */
+  {
 	register int *p, i, j;
 	int cnt, m;
 	int temp[300], k, neg[300], n;
@@ -651,7 +646,7 @@ acompute(s)	/* compute action list = set of poss. actions */
 	return;
 	}
 # ifdef DEBUG
-pccl() {
+void pccl(void) {
 	/* print character class sets */
 	register int i, j;
 	printf("char class intersection\n");
@@ -681,7 +676,7 @@ pccl() {
 	return;
 	}
 # endif
-mkmatch(){
+void mkmatch(void){
 	register int i;
 	char tab[NCH];
 	for(i=0; i<ccount; i++)
@@ -694,7 +689,7 @@ mkmatch(){
 		match[i] = tab[cindex[i]];
 	return;
 	}
-layout(){
+void layout(void){
 	/* format and output final program's tables */
 	register int i, j, k;
 	int  top, bot, startup, omin;
@@ -876,9 +871,8 @@ layout(){
 	fprintf(fout,"0};\n");
 	return;
 	}
-rprint(a,s,n)
-  char *s;
-  int *a, n; {
+void rprint(char *a,int *s,int n)
+  {
 	register int i;
 	fprintf(fout,"block data\n");
 	fprintf(fout,"common /L%s/ %s\n",s,s);
@@ -892,23 +886,20 @@ rprint(a,s,n)
 		}
 	fprintf(fout,"end\n");
 	}
-shiftr(a, n)
-	int *a;
+void shiftr(int *a, int n)
 {
 int i;
 for(i=n; i>=0; i--)
 	a[i+1]=a[i];
 }
-upone(a,n)
-	int *a;
+void upone(int *a,int n)
 {
 int i;
 for(i=0; i<=n ; i++)
 	a[i]++;
 }
-bprint(a,s,n)
- char *s,  *a;
- int  n; {
+void bprint(char *a,char *s,int n)
+ {
 	register int i, j, k;
 	fprintf(fout,"block data\n");
 	fprintf(fout,"common /L%s/ %s\n",s,s);
@@ -925,9 +916,8 @@ bprint(a,s,n)
 	fprintf(fout,"end\n");
 	}
 # ifdef PP
-padd(array,n)
-  int **array;
-  int n; {
+void padd(int **array,int n)
+  {
 	register int i, *j, k;
 	array[n] = nxtpos;
 	if(count == 0){

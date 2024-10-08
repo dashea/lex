@@ -6,9 +6,8 @@
 	/* Copyright 1976, Bell Telephone Laboratories, Inc.,
 	    written by Eric Schmidt, August 27, 1976   */
 
-main(argc,argv)
-  int argc;
-  char **argv; {
+int main(int argc,char **argv)
+  {
 	register int i;
 # ifdef DEBUG
 	signal(10,buserr);
@@ -114,7 +113,7 @@ main(argc,argv)
 	fclose(stderr);
 	exit(0);	/* success return code */
 	}
-get1core(){
+void get1core(void){
 	register int i, val;
 	register char *p;
 ccptr =	ccl = myalloc(CCLSIZE,sizeof(*ccl));
@@ -127,12 +126,12 @@ sp = 	schar = myalloc(STARTCHAR,sizeof(*schar));
 	if(ccl == 0 || def == 0 || subs == 0 || dchar == 0 || sname == 0 || schar == 0)
 		error("Too little core to begin");
 	}
-free1core(){
+void free1core(void){
 	cfree(def,DEFSIZE,sizeof(*def));
 	cfree(subs,DEFSIZE,sizeof(*subs));
 	cfree(dchar,DEFCHAR,sizeof(*dchar));
 	}
-get2core(){
+void get2core(void){
 	register int i, val;
 	register char *p;
 	gotof = myalloc(nstates,sizeof(*gotof));
@@ -150,7 +149,7 @@ nxtpos = positions = myalloc(maxpos,sizeof(*positions));
 		error("Too little core for state generation");
 	for(i=0;i<=tptr;i++)foll[i] = 0;
 	}
-free2core(){
+void free2core(void){
 	cfree(positions,maxpos,sizeof(*positions));
 	cfree(tmpstat,tptr+1,sizeof(*tmpstat));
 	cfree(foll,tptr+1,sizeof(*foll));
@@ -164,7 +163,7 @@ free2core(){
 	cfree(schar,STARTCHAR,sizeof(*schar));
 	cfree(ccl,CCLSIZE,sizeof(*ccl));
 	}
-get3core(){
+void get3core(void){
 	register int i, val;
 	register char *p;
 	verify = myalloc(outsize,sizeof(*verify));
@@ -174,7 +173,7 @@ get3core(){
 		error("Too little core for final packing");
 	}
 # ifdef DEBUG
-free3core(){
+void free3core(void){
 	cfree(advance,outsize,sizeof(*advance));
 	cfree(verify,outsize,sizeof(*verify));
 	cfree(stoff,stnum+1,sizeof(*stoff));
@@ -186,8 +185,8 @@ free3core(){
 	cfree(cpackflg,nstates,sizeof(*cpackflg));
 	}
 # endif
-char *myalloc(a,b)
-  int a,b; {
+char *myalloc(int a,int b)
+  {
 	register int i;
 	i = calloc(a, b);
 	if(i==0)
@@ -201,7 +200,7 @@ char *myalloc(a,b)
 	return(i);
 	}
 # ifdef DEBUG
-buserr(){
+void buserr(void){
 	fflush(errorf);
 	fflush(fout);
 	fflush(stdout);
@@ -209,7 +208,7 @@ buserr(){
 	if(report == 1)statistics();
 	fflush(errorf);
 	}
-segviol(){
+void segviol(void){
 	fflush(errorf);
 	fflush(fout);
 	fflush(stdout);
@@ -219,8 +218,7 @@ segviol(){
 	}
 # endif
 
-yyerror(s)
-char *s;
+void yyerror(char *s)
 {
 	fprintf(stderr, "%s\n", s);
 }

@@ -1,6 +1,6 @@
 # include <stdio.h>
-allprint(c)
-  char c; {
+void allprint(char c)
+  {
 	extern FILE *yyout;
 	switch(c){
 		case '\n':
@@ -24,14 +24,13 @@ allprint(c)
 		}
 	return;
 	}
-sprint(s)
-  char *s; {
+void sprint(char *s)
+  {
 	while(*s)
 		allprint(*s++);
 	return;
 	}
-printable(c)
-  int c;
+void printable(int c)
 	{
 	return(040 < c && c < 0177);
 	}

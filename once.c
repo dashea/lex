@@ -127,4 +127,5 @@ int pchlen TOKENSIZE;
 int *verify, *advance, *stoff;
 int scon;
 char *psave;
-int buserr(), segviol();
+void buserr(void);
+void segviol(void);
