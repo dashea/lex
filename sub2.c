@@ -1,4 +1,5 @@
 # include "ldefs.c"
+#include "sub1.h"
 void cfoll(int v)
 	{
 	register int i,j,k;
@@ -88,7 +89,7 @@ void pfoll(void)
 	return;
 	}
 # endif
-void add(int **array,int n)
+static void add(int **array,int n)
   {
 	register int i, *temp;
 	register char *ctemp;
@@ -104,7 +105,7 @@ void add(int **array,int n)
 		error("Too many positions %s",(maxpos== MAXPOS?"\nTry using %p num":""));
 	return;
 	}
-void follow(int v)
+static void follow(int v)
 	{
 	register int p;
 	if(v >= tptr-1)return;
@@ -143,7 +144,7 @@ void follow(int v)
 		}
 	return;
 	}
-void first(int v)	/* calculate set of positions with v as root which can be active initially */
+static void first(int v)	/* calculate set of positions with v as root which can be active initially */
   {
 	register int i;
 	register char *p;
@@ -305,7 +306,7 @@ void cgoto(void){
 	}
 	/*	Beware -- 70% of total CPU time is spent in this subroutine -
 		if you don't believe me - try it yourself ! */
-void nextstate(int s,int c)
+static void nextstate(int s,int c)
   {
 	register int j, *newpos;
 	register char *temp, *tz;
@@ -339,7 +340,7 @@ void nextstate(int s,int c)
 	count = j;
 	return;
 	}
-int notin(int n)
+static int notin(int n)
   {	/* see if tmpstat occurs previously */
 	register int *j,k;
 	register char *temp;
@@ -358,7 +359,7 @@ int notin(int n)
 		}
 	return(-1);
 	}
-void packtrans(int st,char *tch,int *tst,int cnt,int tryit)
+static void packtrans(int st,char *tch,int *tst,int cnt,int tryit)
   {
 	/* pack transitions into nchar, nexts */
 	/* nchar is terminated by '\0', nexts uses cnt, followed by elements */
@@ -520,7 +521,7 @@ nopack:
 	return;
 	}
 # ifdef DEBUG
-void pstate(int s)
+static void pstate(int s)
   {
 	register int *p,i,j;
 	printf("State %d:\n",s);
@@ -536,7 +537,7 @@ void pstate(int s)
 	return;
 	}
 # endif
-int member(int d,char *t)
+static int member(int d,char *t)
   {
 	register int c;
 	register char *s;
@@ -580,7 +581,7 @@ void stprt(int i)
 	return;
 	}
 # endif
-void acompute(int s)	/* compute action list = set of poss. actions */
+static void acompute(int s)	/* compute action list = set of poss. actions */
   {
 	register int *p, i, j;
 	int cnt, m;
@@ -871,7 +872,7 @@ void layout(void){
 	fprintf(fout,"0};\n");
 	return;
 	}
-void rprint(char *a,int *s,int n)
+static void rprint(char *a,int *s,int n)
   {
 	register int i;
 	fprintf(fout,"block data\n");
@@ -886,19 +887,19 @@ void rprint(char *a,int *s,int n)
 		}
 	fprintf(fout,"end\n");
 	}
-void shiftr(int *a, int n)
+static void shiftr(int *a, int n)
 {
 int i;
 for(i=n; i>=0; i--)
 	a[i+1]=a[i];
 }
-void upone(int *a,int n)
+static void upone(int *a,int n)
 {
 int i;
 for(i=0; i<=n ; i++)
 	a[i]++;
 }
-void bprint(char *a,char *s,int n)
+static void bprint(char *a,char *s,int n)
  {
 	register int i, j, k;
 	fprintf(fout,"block data\n");
@@ -916,7 +917,7 @@ void bprint(char *a,char *s,int n)
 	fprintf(fout,"end\n");
 	}
 # ifdef PP
-void padd(int **array,int n)
+static void padd(int **array,int n)
   {
 	register int i, *j, k;
 	array[n] = nxtpos;

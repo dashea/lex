@@ -1,5 +1,6 @@
 # include "ldefs.c"
 # include "once.c"
+#include "sub2.h"
 
 	/* lex [-[drcyvntf]] [file] ... [file] */
 
@@ -113,7 +114,7 @@ int main(int argc,char **argv)
 	fclose(stderr);
 	exit(0);	/* success return code */
 	}
-void get1core(void){
+static void get1core(void){
 	register int i, val;
 	register char *p;
 ccptr =	ccl = myalloc(CCLSIZE,sizeof(*ccl));
@@ -126,12 +127,12 @@ sp = 	schar = myalloc(STARTCHAR,sizeof(*schar));
 	if(ccl == 0 || def == 0 || subs == 0 || dchar == 0 || sname == 0 || schar == 0)
 		error("Too little core to begin");
 	}
-void free1core(void){
+static void free1core(void){
 	cfree(def,DEFSIZE,sizeof(*def));
 	cfree(subs,DEFSIZE,sizeof(*subs));
 	cfree(dchar,DEFCHAR,sizeof(*dchar));
 	}
-void get2core(void){
+static void get2core(void){
 	register int i, val;
 	register char *p;
 	gotof = myalloc(nstates,sizeof(*gotof));
@@ -149,7 +150,7 @@ nxtpos = positions = myalloc(maxpos,sizeof(*positions));
 		error("Too little core for state generation");
 	for(i=0;i<=tptr;i++)foll[i] = 0;
 	}
-void free2core(void){
+static void free2core(void){
 	cfree(positions,maxpos,sizeof(*positions));
 	cfree(tmpstat,tptr+1,sizeof(*tmpstat));
 	cfree(foll,tptr+1,sizeof(*foll));
@@ -163,7 +164,7 @@ void free2core(void){
 	cfree(schar,STARTCHAR,sizeof(*schar));
 	cfree(ccl,CCLSIZE,sizeof(*ccl));
 	}
-void get3core(void){
+static void get3core(void){
 	register int i, val;
 	register char *p;
 	verify = myalloc(outsize,sizeof(*verify));
@@ -173,7 +174,7 @@ void get3core(void){
 		error("Too little core for final packing");
 	}
 # ifdef DEBUG
-void free3core(void){
+static void free3core(void){
 	cfree(advance,outsize,sizeof(*advance));
 	cfree(verify,outsize,sizeof(*verify));
 	cfree(stoff,stnum+1,sizeof(*stoff));

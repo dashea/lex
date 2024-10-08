@@ -3,7 +3,7 @@ void phead1(void){
 	ratfor ? rhd1() : chd1();
 	}
 
-void chd1(void){
+static void chd1(void){
 	fprintf(fout,"# include \"stdio.h\"\n");
 	if (ZCH>NCH)
 	fprintf(fout, "# define U(x) ((x)&0377)\n");
@@ -44,7 +44,7 @@ void chd1(void){
 	fprintf(fout,"extern struct yysvf yysvec[], *yybgin;\n");
 	}
 
-void rhd1(void){
+static void rhd1(void){
 	fprintf(fout,"integer function yylex(dummy)\n");
 	fprintf(fout,"define YYLMAX 200\n");
 	fprintf(fout,"define ECHO call yyecho(yytext,yyleng)\n");
@@ -67,7 +67,7 @@ void phead2(void){
 	if(!ratfor)chd2();
 	}
 
-void chd2(void){
+static void chd2(void){
 	fprintf(fout,"while((nstr = yylook()) >= 0)\n");
 	fprintf(fout,"yyfussy: switch(nstr){\n");
 	fprintf(fout,"case 0:\n");
@@ -80,7 +80,7 @@ void ptail(void){
 	pflag = 1;
 	}
 
-void ctail(void){
+static void ctail(void){
 	fprintf(fout,"case -1:\nbreak;\n");		/* for reject */
 	fprintf(fout,"default:\n");
 	fprintf(fout,"fprintf(yyout,\"bad switch yylook %%d\",nstr);\n");
@@ -88,7 +88,7 @@ void ctail(void){
 	fprintf(fout,"/* end of yylex */\n");
 	}
 
-void rtail(void){
+static void rtail(void){
 	register int i;
 	fprintf(fout,"\n30998 if(nstr .lt. 0 .or. nstr .gt. %d)goto 30999\n",casecount);
 	fprintf(fout,"nstr = nstr + 1\n");

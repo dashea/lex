@@ -9,6 +9,8 @@
 
 %{
 # include "ldefs.c"
+#include "header.h"
+#include "sub1.h"
 %}
 %%
 %{

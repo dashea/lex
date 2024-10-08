@@ -17,16 +17,16 @@ lex: lmain.o y.tab.o sub1.o sub2.o header.o
 smallex:
 	cc -DSMALL -n -s -O lmain.c y.tab.c sub1.c sub2.c header.c -o smallex
 
-y.tab.c: parser.y
+y.tab.c: parser.y header.h sub1.h
 	yacc parser.y
 
-lmain.o:lmain.c ldefs.c once.c
+lmain.o:lmain.c ldefs.c once.c sub2.h
 	cc -c -O lmain.c
 
-sub1.o: sub1.c ldefs.c
+sub1.o: sub1.c ldefs.c header.h
 	cc -c -O sub1.c
 
-sub2.o: sub2.c ldefs.c
+sub2.o: sub2.c ldefs.c sub1.h
 	cc -c -O sub2.c
 
 header.o: header.c ldefs.c
