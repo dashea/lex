@@ -3,7 +3,6 @@
 #endif
 
 #include "ldefs.h"
-# include "once.c"
 #include "sub2.h"
 
 	/* lex [-[drcyvntf]] [file] ... [file] */
