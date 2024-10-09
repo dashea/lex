@@ -240,13 +240,6 @@ int yylex(void){
 						fprintf(fout,"define YYNEWLINE %d\n",ctable['\n']);
 						if(!ratfor)fprintf(fout,"yylex(){\nint nstr; extern int yyprevious;\n");
 						sectbegin = TRUE;
-						i = treesize*(sizeof(*name)+sizeof(*left)+
-							sizeof(*right)+sizeof(*nullstr)+sizeof(*parent))+ALITTLEEXTRA;
-						c = calloc(i,1);
-						if(c == NULL)
-							error("Too little core for parse tree");
-						p = c;
-						free(p);
 						name = calloc(treesize,sizeof(*name));
 						left = calloc(treesize,sizeof(*left));
 						right = calloc(treesize,sizeof(*right));
