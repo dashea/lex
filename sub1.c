@@ -68,7 +68,7 @@ void warning(const char *s,...)
 	fflush(fout);
 	fflush(stdout);
 	}
-int index(char a,char *s)
+int sub1_index(char a,char *s)
 {
 	register int k;
 	for(k=0; s[k]; k++)

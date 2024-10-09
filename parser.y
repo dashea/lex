@@ -359,12 +359,12 @@ int yylex(void){
 						error("Premature eof");
 					case 's': case 'S':		/* start conditions */
 						lgate();
-						while(*p && index(*p," \t,") < 0) p++;
+						while(*p && sub1_index(*p," \t,") < 0) p++;
 						n = TRUE;
 						while(n){
-							while(*p && index(*p," \t,") >= 0) p++;
+							while(*p && sub1_index(*p," \t,") >= 0) p++;
 							t = p;
-							while(*p && index(*p," \t,") < 0)p++;
+							while(*p && sub1_index(*p," \t,") < 0)p++;
 							if(!*p) n = FALSE;
 							*p++ = 0;
 							if (*t == 0) continue;

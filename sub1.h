@@ -6,7 +6,7 @@ int space(char ch);
 int digit(char c);
 void error(const char *s, ...);
 void warning(const char *s,...);
-int index(char a,char *s);
+int sub1_index(char a,char *s);
 int alpha(char c);
 int printable(char c);
 void lgate(void);
