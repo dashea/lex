@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 # include "ldefs.c"
 #include "sub1.h"
 #include "sub2.h"
