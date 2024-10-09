@@ -1,8 +1,12 @@
+#include <stdlib.h>
+
 #ifdef DEBUG
 #include <signal.h>
 #endif
 
 #include "ldefs.h"
+#include "header.h"
+#include "sub1.h"
 #include "sub2.h"
 
 	/* lex [-[drcyvntf]] [file] ... [file] */
@@ -79,7 +83,7 @@ int main(int argc,char **argv)
 	sname[0] = sp;
 	sp =+ slength("INITIAL") + 1;
 	sname[1] = 0;
-	if(yyparse(0)) exit(1);	/* error return code */
+	if(yyparse()) exit(1);	/* error return code */
 		/* may be disposed of: def, subs, dchar */
 	free1core();
 		/* may be gotten: tmpstat, foll, positions, gotof, nexts, nchar, state, atable, sfall, cpackflg */

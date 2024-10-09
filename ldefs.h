@@ -163,4 +163,6 @@ extern int scon;
 extern char *psave;
 extern char *myalloc(int, int);
 
+extern int yyparse(void);
+
 #endif /* _LDEFS_H_ */

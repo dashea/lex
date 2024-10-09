@@ -20,7 +20,7 @@ smallex:
 y.tab.c: parser.y header.h sub1.h
 	yacc parser.y
 
-lmain.o:lmain.c ldefs.h sub2.h
+lmain.o:lmain.c header.h ldefs.h sub1.h sub2.h
 	cc -c -O lmain.c
 
 sub1.o: sub1.c ldefs.h header.h sub1.h
