@@ -46,12 +46,12 @@ end:		delim | ;
 defns:	defns STR STR
 	={	scopy($2,dp);
 		def[dptr] = dp;
-		dp =+ slength($2) + 1;
+		dp += slength($2) + 1;
 		scopy($3,dp);
 		subs[dptr++] = dp;
 		if(dptr >= DEFSIZE)
 			error("Too many definitions");
-		dp =+ slength($3) + 1;
+		dp += slength($3) + 1;
 		if(dp >= dchar+DEFCHAR)
 			error("Definitions too long");
 		subs[dptr]=def[dptr]=0;	/* for lookup - require ending null */
@@ -376,7 +376,7 @@ int yylex(void){
 							sname[sptr] = 0;	/* required by lookup */
 							if(sptr >= STARTSIZE)
 								error("Too many start conditions");
-							sp =+ slength(sp) + 1;
+							sp += slength(sp) + 1;
 							if(sp >= schar+STARTCHAR)
 								error("Start conditions too long");
 							}
@@ -634,7 +634,7 @@ int yylex(void){
 				else {
 					yylval = ccptr;
 					scopy(token,ccptr);
-					ccptr =+ slength(token) + 1;
+					ccptr += slength(token) + 1;
 					if(ccptr >= ccl+CCLSIZE)
 						error("Too many large character classes");
 					}

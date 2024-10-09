@@ -178,7 +178,7 @@ int ctrans(char **ss)
 	case '\\': c = '\\'; break;
 	case '0': case '1': case '2': case '3':
 	case '4': case '5': case '6': case '7':
-		c =- '0';
+		c -= '0';
 		while ((k = *(*ss+1)) >= '0' && k <= '7')
 			{
 			c = c*8 + k - '0';
@@ -254,7 +254,7 @@ int usescape(int c)
 	case 'f': c = 014; break;		/* form feed for ascii */
 	case '0': case '1': case '2': case '3':
 	case '4': case '5': case '6': case '7':
-		c =- '0';
+		c -= '0';
 		while('0' <= (d=gch()) && d <= '7'){
 			c = c * 8 + (d-'0');
 			if(!('0' <= peek && peek <= '7')) break;
@@ -554,7 +554,7 @@ void allprint(char c)
 		default:
 			if(!printable(c)){
 				printf("\\%-3o",c);
-				charc =+ 3;
+				charc += 3;
 				}
 			else 
 				putchar(c);
