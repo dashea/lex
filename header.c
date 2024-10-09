@@ -108,9 +108,9 @@ static void rtail(void){
 	fprintf(fout,"}\nend\n");
 	}
 void statistics(void){
-	fprintf(errorf,"%d/%d nodes(%%e), %d/%d positions(%%p), %d/%d (%%n), %ld transitions\n",
+	fprintf(errorf,"%d/%d nodes(%%e), %td/%d positions(%%p), %d/%d (%%n), %ld transitions\n",
 		tptr, treesize, nxtpos-positions, maxpos, stnum+1, nstates, rcount);
-	fprintf(errorf, ", %d/%d packed char classes(%%k)", pcptr-pchar, pchlen);
+	fprintf(errorf, ", %td/%d packed char classes(%%k)", pcptr-pchar, pchlen);
 	if(optim)fprintf(errorf,", %d/%d packed transitions(%%a)",nptr, ntrans);
 	fprintf(errorf, ", %d/%d output slots(%%o)", yytop, outsize);
 	putc('\n',errorf);
