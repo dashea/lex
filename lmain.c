@@ -135,9 +135,9 @@ sp = 	schar = myalloc(STARTCHAR,sizeof(*schar));
 		error("Too little core to begin");
 	}
 static void free1core(void){
-	cfree(def,DEFSIZE,sizeof(*def));
-	cfree(subs,DEFSIZE,sizeof(*subs));
-	cfree(dchar,DEFCHAR,sizeof(*dchar));
+	free(def);
+	free(subs);
+	free(dchar);
 	}
 static void get2core(void){
 	register int i, val;
@@ -158,18 +158,18 @@ nxtpos = positions = myalloc(maxpos,sizeof(*positions));
 	for(i=0;i<=tptr;i++)foll[i] = 0;
 	}
 static void free2core(void){
-	cfree(positions,maxpos,sizeof(*positions));
-	cfree(tmpstat,tptr+1,sizeof(*tmpstat));
-	cfree(foll,tptr+1,sizeof(*foll));
-	cfree(name,treesize,sizeof(*name));
-	cfree(left,treesize,sizeof(*left));
-	cfree(right,treesize,sizeof(*right));
-	cfree(parent,treesize,sizeof(*parent));
-	cfree(nullstr,treesize,sizeof(*nullstr));
-	cfree(state,nstates,sizeof(*state));
-	cfree(sname,STARTSIZE,sizeof(*sname));
-	cfree(schar,STARTCHAR,sizeof(*schar));
-	cfree(ccl,CCLSIZE,sizeof(*ccl));
+	free(positions);
+	free(tmpstat);
+	free(foll);
+	free(name);
+	free(left);
+	free(right);
+	free(parent);
+	free(nullstr);
+	free(state);
+	free(sname);
+	free(schar);
+	free(ccl);
 	}
 static void get3core(void){
 	register int i, val;
@@ -182,15 +182,15 @@ static void get3core(void){
 	}
 # ifdef DEBUG
 static void free3core(void){
-	cfree(advance,outsize,sizeof(*advance));
-	cfree(verify,outsize,sizeof(*verify));
-	cfree(stoff,stnum+1,sizeof(*stoff));
-	cfree(gotof,nstates,sizeof(*gotof));
-	cfree(nexts,ntrans,sizeof(*nexts));
-	cfree(nchar,ntrans,sizeof(*nchar));
-	cfree(atable,nstates,sizeof(*atable));
-	cfree(sfall,nstates,sizeof(*sfall));
-	cfree(cpackflg,nstates,sizeof(*cpackflg));
+	free(advance);
+	free(verify);
+	free(stoff);
+	free(gotof);
+	free(nexts);
+	free(nchar);
+	free(atable);
+	free(sfall);
+	free(cpackflg);
 	}
 # endif
 char *myalloc(int a,int b)

@@ -874,7 +874,7 @@ void layout(void){
 					fprintf(fout, "0%-3o,",fbarr[i+j]);
 				putc('\n',fout);
 				}
-			cfree(fbarr, 2*NCH, 1);
+			free(fbarr);
 			}
 		fprintf(fout,"0};\n");
 		}

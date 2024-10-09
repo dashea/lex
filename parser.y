@@ -243,7 +243,7 @@ int yylex(void){
 						if(c == 0)
 							error("Too little core for parse tree");
 						p = c;
-						cfree(p,i,1);
+						free(p);
 						name = myalloc(treesize,sizeof(*name));
 						left = myalloc(treesize,sizeof(*left));
 						right = myalloc(treesize,sizeof(*right));
@@ -292,7 +292,7 @@ int yylex(void){
 					case 'k': case 'K': /* overriden packed char classes */
 						while (*p && !digit(*p))p++;
 						if (report==2) report=1;
-						cfree(pchar, pchlen, sizeof(*pchar));
+						free(pchar);
 						pchlen = siconv(p);
 # ifdef DEBUG
 						if (debug) printf( "Size classes (%%k) now %d\n",pchlen);
