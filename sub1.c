@@ -1,6 +1,7 @@
 #include <stdarg.h>
 # include "ldefs.c"
 #include "header.h"
+#include "sub1.h"
 char * getl(char *p)	/* return next line of input, throw away trailing '\n' */
 	/* returns 0 if eof is had immediately */
 	{

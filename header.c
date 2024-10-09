@@ -1,4 +1,12 @@
 # include "ldefs.c"
+#include "header.h"
+
+static void chd1(void);
+static void rhd1(void);
+static void chd2(void);
+static void ctail(void);
+static void rtail(void);
+
 void phead1(void){
 	ratfor ? rhd1() : chd1();
 	}

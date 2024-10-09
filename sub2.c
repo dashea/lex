@@ -1,5 +1,22 @@
 # include "ldefs.c"
 #include "sub1.h"
+#include "sub2.h"
+
+static void add(int **array,int n);
+static void follow(int v);
+static void first(int v);
+static void nextstate(int s,int c);
+static int notin(int n);
+static void packtrans(int st,char *tch,int *tst,int cnt,int tryit);
+static void pstate(int s);
+static int member(int d,char *t);
+static void acompute(int s);
+static void rprint(char *a,int *s,int n);
+static void shiftr(int *a, int n);
+static void upone(int *a,int n);
+static void bprint(char *a,char *s,int n);
+static void padd(int **array,int n);
+
 void cfoll(int v)
 	{
 	register int i,j,k;

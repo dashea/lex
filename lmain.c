@@ -7,6 +7,13 @@
 	/* Copyright 1976, Bell Telephone Laboratories, Inc.,
 	    written by Eric Schmidt, August 27, 1976   */
 
+static void get1core(void);
+static void free1core(void);
+static void get2core(void);
+static void free2core(void);
+static void get3core(void);
+static void free3core(void);
+
 int main(int argc,char **argv)
   {
 	register int i;
