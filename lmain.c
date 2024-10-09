@@ -19,7 +19,10 @@ static void free1core(void);
 static void get2core(void);
 static void free2core(void);
 static void get3core(void);
+
+#ifdef DEBUG
 static void free3core(void);
+#endif
 
 #ifdef DEBUG
 static void buserr(int signal);
@@ -134,8 +137,6 @@ int main(int argc,char **argv)
 	exit(0);	/* success return code */
 	}
 static void get1core(void){
-	register int i, val;
-	register char *p;
 ccptr =	ccl = myalloc(CCLSIZE,sizeof(*ccl));
 pcptr = pchar = myalloc(pchlen, sizeof(*pchar));
 	def = myalloc(DEFSIZE,sizeof(*def));
@@ -152,8 +153,7 @@ static void free1core(void){
 	free(dchar);
 	}
 static void get2core(void){
-	register int i, val;
-	register char *p;
+	register int i;
 	gotof = myalloc(nstates,sizeof(*gotof));
 	nexts = myalloc(ntrans,sizeof(*nexts));
 	nchar = myalloc(ntrans,sizeof(*nchar));
@@ -184,8 +184,6 @@ static void free2core(void){
 	free(ccl);
 	}
 static void get3core(void){
-	register int i, val;
-	register char *p;
 	verify = myalloc(outsize,sizeof(*verify));
 	advance = myalloc(outsize,sizeof(*advance));
 	stoff = myalloc(stnum+2,sizeof(*stoff));
