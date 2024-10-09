@@ -20,16 +20,16 @@ smallex:
 y.tab.c: parser.y header.h sub1.h
 	yacc parser.y
 
-lmain.o:lmain.c ldefs.c once.c sub2.h
+lmain.o:lmain.c ldefs.h once.c sub2.h
 	cc -c -O lmain.c
 
-sub1.o: sub1.c ldefs.c header.h sub1.h
+sub1.o: sub1.c ldefs.h header.h sub1.h
 	cc -c -O sub1.c
 
-sub2.o: sub2.c ldefs.c sub1.h sub2.h
+sub2.o: sub2.c ldefs.h sub1.h sub2.h
 	cc -c -O sub2.c
 
-header.o: header.c ldefs.c header.h
+header.o: header.c ldefs.h header.h
 	cc -c -O header.c
 
 libln.a:

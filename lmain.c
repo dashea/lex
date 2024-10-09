@@ -2,7 +2,7 @@
 #include <signal.h>
 #endif
 
-# include "ldefs.c"
+#include "ldefs.h"
 # include "once.c"
 #include "sub2.h"
 

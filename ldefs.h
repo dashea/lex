@@ -1,3 +1,6 @@
+#ifndef _LDEFS_H_
+#define _LDEFS_H_
+
 # include <stdio.h>
 # define PP 1
 # ifdef unix
@@ -159,3 +162,5 @@ extern int *verify, *advance, *stoff;
 extern int scon;
 extern char *psave;
 extern char *myalloc(int, int);
+
+#endif /* _LDEFS_H_ */

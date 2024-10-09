@@ -8,7 +8,7 @@
 %left '*' '+' '?'
 
 %{
-# include "ldefs.c"
+#include "ldefs.h"
 #include "header.h"
 #include "sub1.h"
 %}

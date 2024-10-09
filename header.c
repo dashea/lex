@@ -1,4 +1,4 @@
-# include "ldefs.c"
+#include "ldefs.h"
 #include "header.h"
 
 static void chd1(void);

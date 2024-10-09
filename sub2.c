@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-# include "ldefs.c"
+#include "ldefs.h"
 #include "sub1.h"
 #include "sub2.h"
 
