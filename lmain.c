@@ -205,18 +205,12 @@ static void free3core(void){
 	free(cpackflg);
 	}
 # endif
-char *myalloc(int a,int b)
+void *myalloc(size_t a,size_t b)
   {
-	register int i;
+	void *i;
 	i = calloc(a, b);
-	if(i==0)
-		warning("OOPS - calloc returns a 0");
-	else if(i == -1){
-# ifdef DEBUG
-		warning("calloc returns a -1");
-# endif
-		return(0);
-		}
+	if(i==NULL)
+		error("OOPS - calloc returns a 0");
 	return(i);
 	}
 # ifdef DEBUG
