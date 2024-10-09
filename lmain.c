@@ -1,3 +1,7 @@
+#ifdef DEBUG
+#include <signal.h>
+#endif
+
 # include "ldefs.c"
 # include "once.c"
 #include "sub2.h"
@@ -14,12 +18,17 @@ static void free2core(void);
 static void get3core(void);
 static void free3core(void);
 
+#ifdef DEBUG
+static void buserr(int signal);
+static void segviol(int signal);
+#endif
+
 int main(int argc,char **argv)
   {
 	register int i;
 # ifdef DEBUG
-	signal(10,buserr);
-	signal(11,segviol);
+	signal(SIGBUS,buserr);
+	signal(SIGSEGV,segviol);
 # endif
 	while (argc > 1 && argv[1][0] == '-' ){
 		i = 0;
@@ -208,7 +217,7 @@ char *myalloc(int a,int b)
 	return(i);
 	}
 # ifdef DEBUG
-void buserr(void){
+static void buserr(int signal){
 	fflush(errorf);
 	fflush(fout);
 	fflush(stdout);
@@ -216,7 +225,7 @@ void buserr(void){
 	if(report == 1)statistics();
 	fflush(errorf);
 	}
-void segviol(void){
+static void segviol(int signal){
 	fflush(errorf);
 	fflush(fout);
 	fflush(stdout);
