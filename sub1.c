@@ -195,7 +195,7 @@ void cclinter(int sw)
 	int m;
 	if(!sw){		/* is NCCL */
 		for(i=1;i<NCH;i++)
-			symbol[i] =^ 1;			/* reverse value */
+			symbol[i] ^= 1;			/* reverse value */
 		}
 	for(i=1;i<NCH;i++)
 		if(symbol[i]) break;
