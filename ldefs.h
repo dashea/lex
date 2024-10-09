@@ -161,7 +161,6 @@ extern int optim;
 extern int *verify, *advance, *stoff;
 extern int scon;
 extern char *psave;
-extern void *myalloc(size_t, size_t);
 
 extern int yyparse(void);
 

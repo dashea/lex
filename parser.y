@@ -8,6 +8,9 @@
 %left '*' '+' '?'
 
 %{
+#include <stdlib.h>
+#include <string.h>
+
 #include "ldefs.h"
 #include "header.h"
 #include "sub1.h"
@@ -239,17 +242,17 @@ int yylex(void){
 						sectbegin = TRUE;
 						i = treesize*(sizeof(*name)+sizeof(*left)+
 							sizeof(*right)+sizeof(*nullstr)+sizeof(*parent))+ALITTLEEXTRA;
-						c = myalloc(i,1);
-						if(c == 0)
+						c = calloc(i,1);
+						if(c == NULL)
 							error("Too little core for parse tree");
 						p = c;
 						free(p);
-						name = myalloc(treesize,sizeof(*name));
-						left = myalloc(treesize,sizeof(*left));
-						right = myalloc(treesize,sizeof(*right));
-						nullstr = myalloc(treesize,sizeof(*nullstr));
-						parent = myalloc(treesize,sizeof(*parent));
-						if(name == 0 || left == 0 || right == 0 || parent == 0 || nullstr == 0)
+						name = calloc(treesize,sizeof(*name));
+						left = calloc(treesize,sizeof(*left));
+						right = calloc(treesize,sizeof(*right));
+						nullstr = calloc(treesize,sizeof(*nullstr));
+						parent = calloc(treesize,sizeof(*parent));
+						if(name == NULL || left == NULL || right == NULL || parent == NULL || nullstr == NULL)
 							error("Too little core for parse tree");
 						return(freturn(DELIM));
 					case 'p': case 'P':	/* has overridden number of positions */
@@ -297,7 +300,9 @@ int yylex(void){
 # ifdef DEBUG
 						if (debug) printf( "Size classes (%%k) now %d\n",pchlen);
 # endif
-						pchar=pcptr=myalloc(pchlen, sizeof(*pchar));
+						pchar=pcptr=calloc(pchlen, sizeof(*pchar));
+                                                if (pcptr == NULL)
+                                                    error("Unable to allocate memory");
 						continue;
 					case 't': case 'T': 	/* character set specifier */
 						ZCH = atoi(p+2);

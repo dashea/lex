@@ -137,14 +137,14 @@ int main(int argc,char **argv)
 	exit(0);	/* success return code */
 	}
 static void get1core(void){
-ccptr =	ccl = myalloc(CCLSIZE,sizeof(*ccl));
-pcptr = pchar = myalloc(pchlen, sizeof(*pchar));
-	def = myalloc(DEFSIZE,sizeof(*def));
-	subs = myalloc(DEFSIZE,sizeof(*subs));
-dp =	dchar = myalloc(DEFCHAR,sizeof(*dchar));
-	sname = myalloc(STARTSIZE,sizeof(*sname));
-sp = 	schar = myalloc(STARTCHAR,sizeof(*schar));
-	if(ccl == 0 || def == 0 || subs == 0 || dchar == 0 || sname == 0 || schar == 0)
+ccptr =	ccl = calloc(CCLSIZE,sizeof(*ccl));
+pcptr = pchar = calloc(pchlen, sizeof(*pchar));
+	def = calloc(DEFSIZE,sizeof(*def));
+	subs = calloc(DEFSIZE,sizeof(*subs));
+dp =	dchar = calloc(DEFCHAR,sizeof(*dchar));
+	sname = calloc(STARTSIZE,sizeof(*sname));
+sp = 	schar = calloc(STARTCHAR,sizeof(*schar));
+	if(ccl == NULL || pchar == NULL || def == NULL || subs == NULL || dchar == NULL || sname == NULL || schar == NULL)
 		error("Too little core to begin");
 	}
 static void free1core(void){
@@ -154,18 +154,18 @@ static void free1core(void){
 	}
 static void get2core(void){
 	register int i;
-	gotof = myalloc(nstates,sizeof(*gotof));
-	nexts = myalloc(ntrans,sizeof(*nexts));
-	nchar = myalloc(ntrans,sizeof(*nchar));
-	state = myalloc(nstates,sizeof(*state));
-	atable = myalloc(nstates,sizeof(*atable));
-	sfall = myalloc(nstates,sizeof(*sfall));
-	cpackflg = myalloc(nstates,sizeof(*cpackflg));
-	tmpstat = myalloc(tptr+1,sizeof(*tmpstat));
-	foll = myalloc(tptr+1,sizeof(*foll));
-nxtpos = positions = myalloc(maxpos,sizeof(*positions));
-	if(tmpstat == 0 || foll == 0 || positions == 0 ||
-		gotof == 0 || nexts == 0 || nchar == 0 || state == 0 || atable == 0 || sfall == 0 || cpackflg == 0 )
+	gotof = calloc(nstates,sizeof(*gotof));
+	nexts = calloc(ntrans,sizeof(*nexts));
+	nchar = calloc(ntrans,sizeof(*nchar));
+	state = calloc(nstates,sizeof(*state));
+	atable = calloc(nstates,sizeof(*atable));
+	sfall = calloc(nstates,sizeof(*sfall));
+	cpackflg = calloc(nstates,sizeof(*cpackflg));
+	tmpstat = calloc(tptr+1,sizeof(*tmpstat));
+	foll = calloc(tptr+1,sizeof(*foll));
+nxtpos = positions = calloc(maxpos,sizeof(*positions));
+	if(tmpstat == NULL || foll == NULL || positions == NULL ||
+		gotof == NULL || nexts == NULL || nchar == NULL || state == NULL || atable == NULL || sfall == NULL || cpackflg == NULL )
 		error("Too little core for state generation");
 	for(i=0;i<=tptr;i++)foll[i] = 0;
 	}
@@ -184,10 +184,10 @@ static void free2core(void){
 	free(ccl);
 	}
 static void get3core(void){
-	verify = myalloc(outsize,sizeof(*verify));
-	advance = myalloc(outsize,sizeof(*advance));
-	stoff = myalloc(stnum+2,sizeof(*stoff));
-	if(verify == 0 || advance == 0 || stoff == 0)
+	verify = calloc(outsize,sizeof(*verify));
+	advance = calloc(outsize,sizeof(*advance));
+	stoff = calloc(stnum+2,sizeof(*stoff));
+	if(verify == NULL || advance == NULL || stoff == NULL)
 		error("Too little core for final packing");
 	}
 # ifdef DEBUG
@@ -203,14 +203,6 @@ static void free3core(void){
 	free(cpackflg);
 	}
 # endif
-void *myalloc(size_t a,size_t b)
-  {
-	void *i;
-	i = calloc(a, b);
-	if(i==NULL)
-		error("OOPS - calloc returns a 0");
-	return(i);
-	}
 # ifdef DEBUG
 static void buserr(int signal){
 	fflush(errorf);

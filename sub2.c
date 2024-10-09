@@ -863,8 +863,8 @@ void layout(void){
 		else
 			{
 			int *fbarr;
-			fbarr = myalloc(2*NCH, sizeof(*fbarr));
-			if (fbarr==0)
+			fbarr = calloc(2*NCH, sizeof(*fbarr));
+			if (fbarr==NULL)
 				error("No space for char table reverse",0);
 			for(i=0; i<ZCH; i++)
 				fbarr[i]=0;
