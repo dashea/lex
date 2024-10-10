@@ -1,4 +1,9 @@
-%token CHAR CCL NCCL STR DELIM SCON ITER NEWE NULLS
+%token <ival> CHAR ITER
+%token <sval> SCON CCL NCCL STR
+%token DELIM NEWE NULLS
+
+%type <ival> prods pr r
+
 %left SCON '/' NEWE
 %left '|'
 %left '$' '^'
@@ -6,6 +11,12 @@
 %left ITER
 %left CAT
 %left '*' '+' '?'
+
+%union
+{
+    char *sval;
+    int   ival;
+}
 
 %{
 #include <stdlib.h>
@@ -228,7 +239,7 @@ int yylex(void){
 	static int iter;
 
 # ifdef DEBUG
-	yylval = 0;
+	yylval = {0};
 # endif
 
 	if(sect == DEFSECTION) {		/* definitions section */
@@ -398,7 +409,7 @@ int yylex(void){
 					prev = *p;
 					*p = 0;
 					bptr = p+1;
-					yylval = buf;
+					yylval.sval = buf;
 					if(digit(buf[0]))
 						warning("Substitution strings may not begin with digits");
 					return(freturn(STR));
@@ -411,7 +422,7 @@ int yylex(void){
 				if(*p == 0)
 					warning("No translation given - null string assumed");
 				scopy(p,token);
-				yylval = token;
+				yylval.sval = token;
 				prev = '\n';
 				return(freturn(STR));
 				}
@@ -506,7 +517,7 @@ int yylex(void){
 						c = gch();
 						}
 					token[i] = 0;
-					yylval = siconv(token);
+					yylval.ival = siconv(token);
 					munput('c',c);
 					x = ITER;
 					break;
@@ -562,7 +573,7 @@ int yylex(void){
 					}
 				if(slptr > slist+STARTSIZE)		/* note not packed ! */
 					error("Too many start conditions used");
-				yylval = t;
+				yylval.sval = t;
 				x = SCON;
 				break;
 			case '"':
@@ -584,11 +595,11 @@ int yylex(void){
 				token[i] = 0;
 				if(i == 0)x = NULLS;
 				else if(i == 1){
-					yylval = token[0];
+					yylval.ival = token[0];
 					x = CHAR;
 					}
 				else {
-					yylval = token;
+					yylval.sval = token;
 					x = STR;
 					}
 				break;
@@ -632,9 +643,9 @@ int yylex(void){
 					while(p <ccptr && scomp(token,p) != 0)p++;
 					}
 				if(p < ccptr)	/* found it */
-					yylval = p;
+					yylval.sval = p;
 				else {
-					yylval = ccptr;
+					yylval.sval = ccptr;
 					scopy(token,ccptr);
 					ccptr += slength(token) + 1;
 					if(ccptr >= ccl+CCLSIZE)
@@ -653,7 +664,7 @@ int yylex(void){
 					}
 				if(alpha(peek)){
 					i = 0;
-					yylval = token;
+					yylval.sval = token;
 					token[i++] = c;
 					while(alpha(peek))
 						token[i++] = gch();
@@ -661,13 +672,13 @@ int yylex(void){
 						munput('c',token[--i]);
 					token[i] = 0;
 					if(i == 1){
-						yylval = token[0];
+						yylval.ival = token[0];
 						x = CHAR;
 						}
 					else x = STR;
 					}
 				else {
-					yylval = c;
+					yylval.ival = c;
 					x = CHAR;
 					}
 				}
@@ -698,13 +709,13 @@ int freturn(int i)
 		printf("   yylval = ");
 		switch(i){
 			case STR: case CCL: case NCCL:
-				strpt(yylval);
+				strpt(yylval.sval);
 				break;
 			case CHAR:
-				allprint(yylval);
+				allprint(yylval.ival);
 				break;
 			default:
-				printf("%d",yylval);
+				printf("%d",yylval.ival);
 				break;
 			}
 		putchar('\n');
