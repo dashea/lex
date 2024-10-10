@@ -482,23 +482,25 @@ int mn0(int a)
 		error("Parse tree too big %s",(treesize == TREESIZE?"\nTry using %e num":""));
 	return(tptr++);
 	}
-void munput(int t,char *p)	/* implementation dependent */
+void munput_str(char *p)
   {
 	register int i,j;
-	if(t == 'c'){
-		*pushptr++ = peek;		/* watch out for this */
-		peek = p;
-		}
-	else if(t == 's'){
-		*pushptr++ = peek;
-		peek = p[0];
-		i = slength(p);
-		for(j = i-1; j>=1; j--)
-			*pushptr++ = p[j];
-		}
-# ifdef DEBUG
-	else error("Unrecognized munput option %c",t);
-# endif
+        *pushptr++ = peek;
+        peek = p[0];
+        i = slength(p);
+        for(j = i-1; j>=1; j--)
+                *pushptr++ = p[j];
+
+	if(pushptr >= pushc+TOKENSIZE)
+		error("Too many characters pushed");
+	return;
+	}
+
+void munput_chr(char p)
+  {
+        *pushptr++ = peek;		/* watch out for this */
+        peek = p;
+
 	if(pushptr >= pushc+TOKENSIZE)
 		error("Too many characters pushed");
 	return;

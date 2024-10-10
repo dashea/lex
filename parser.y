@@ -518,7 +518,7 @@ int yylex(void){
 						}
 					token[i] = 0;
 					yylval.ival = siconv(token);
-					munput('c',c);
+					munput_chr(c);
 					x = ITER;
 					break;
 					}
@@ -533,7 +533,7 @@ int yylex(void){
 					if(i < 0)
 						warning("Definition %s not found",token);
 					else
-						munput('s',subs[i]);
+						munput_str(subs[i]);
 					continue;
 					}
 			case '<':		/* start condition ? */
@@ -669,7 +669,7 @@ int yylex(void){
 					while(alpha(peek))
 						token[i++] = gch();
 					if(peek == '?' || peek == '*' || peek == '+')
-						munput('c',token[--i]);
+						munput_chr(token[--i]);
 					token[i] = 0;
 					if(i == 1){
 						yylval.ival = token[0];
