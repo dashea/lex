@@ -16,14 +16,8 @@
 #include "sub1.h"
 %}
 %%
-%{
-int i;
-int j,k;
-int g;
-char *p;
-%}
 acc	:	lexinput
-	={	
+	{	
 # ifdef DEBUG
 		if(debug) sect2dump();
 # endif
@@ -31,12 +25,12 @@ acc	:	lexinput
 	;
 lexinput:	defns delim prods end
 	|	defns delim end
-	={
+	{
 		if(!funcflag)phead2();
 		funcflag = TRUE;
 	}
 	| error
-	={
+	{
 # ifdef DEBUG
 		if(debug) {
 			sect1dump();
@@ -47,7 +41,7 @@ lexinput:	defns delim prods end
 	;
 end:		delim | ;
 defns:	defns STR STR
-	={	scopy($2,dp);
+	{	scopy($2,dp);
 		def[dptr] = dp;
 		dp += slength($2) + 1;
 		scopy($3,dp);
@@ -62,7 +56,7 @@ defns:	defns STR STR
 	|
 	;
 delim:	DELIM
-	={
+	{
 # ifdef DEBUG
 		if(sect == DEFSECTION && debug) sect1dump();
 # endif
@@ -70,13 +64,15 @@ delim:	DELIM
 		}
 	;
 prods:	prods pr
-	={	$$ = mn2(RNEWE,$1,$2);
+	{	$$ = mn2(RNEWE,$1,$2);
 		}
 	|	pr
-	={	$$ = $1;}
+	{	$$ = $1;}
 	;
 pr:	r NEWE
-	={
+	{
+                int i;
+
 		if(divflg == TRUE)
 			i = mn1(S1FINAL,casecount);
 		else i = mn1(FINAL,casecount);
@@ -85,23 +81,26 @@ pr:	r NEWE
 		casecount++;
 		}
 	| error NEWE
-	={
+	{
 # ifdef DEBUG
 		if(debug) sect2dump();
 # endif
 		}
 r:	CHAR
-	={	$$ = mn0($1); }
+	{	$$ = mn0($1); }
 	| STR
-	={
-		p = $1;
+	{
+		int i;
+		char *p = $1;
 		i = mn0(*p++);
 		while(*p)
 			i = mn2(RSTR,i,*p++);
 		$$ = i;
 		}
 	| '.'
-	={	symbol['\n'] = 0;
+	{	int i;
+        	char *p;
+        	symbol['\n'] = 0;
 		if(psave == FALSE){
 			p = ccptr;
 			psave = ccptr;
@@ -123,21 +122,22 @@ r:	CHAR
 		cclinter(1);
 		}
 	| CCL
-	={	$$ = mn1(RCCL,$1); }
+	{	$$ = mn1(RCCL,$1); }
 	| NCCL
-	={	$$ = mn1(RNCCL,$1); }
+	{	$$ = mn1(RNCCL,$1); }
 	| r '*'
-	={	$$ = mn1(STAR,$1); }
+	{	$$ = mn1(STAR,$1); }
 	| r '+'
-	={	$$ = mn1(PLUS,$1); }
+	{	$$ = mn1(PLUS,$1); }
 	| r '?'
-	={	$$ = mn1(QUEST,$1); }
+	{	$$ = mn1(QUEST,$1); }
 	| r '|' r
-	={	$$ = mn2(BAR,$1,$3); }
+	{	$$ = mn2(BAR,$1,$3); }
 	| r r %prec CAT
-	={	$$ = mn2(RCAT,$1,$2); }
+	{	$$ = mn2(RCAT,$1,$2); }
 	| r '/' r
-	={	if(!divflg){
+	{	int i,j;
+        	if(!divflg){
 			j = mn1(S2FINAL,-casecount);
 			i = mn2(RCAT,$1,j);
 			$$ = mn2(DIV,i,$3);
@@ -149,7 +149,8 @@ r:	CHAR
 		divflg = TRUE;
 		}
 	| r ITER ',' ITER '}'
-	={	if($2 > $4){
+	{	int i,j,k,g;
+        	if($2 > $4){
 			i = $2;
 			$2 = $4;
 			$4 = i;
@@ -170,7 +171,8 @@ r:	CHAR
 			}
 	}
 	| r ITER '}'
-	={
+	{
+                int j,k;
 		if($2 < 0)warning("Can't have negative iteration");
 		else if($2 == 0) $$ = mn0(RNULLS);
 		else {
@@ -181,8 +183,9 @@ r:	CHAR
 			}
 		}
 	| r ITER ',' '}'
-	={
+	{
 				/* from n to infinity */
+                int j,k;
 		if($2 < 0)warning("Can't have negative iteration");
 		else if($2 == 0) $$ = mn1(STAR,$1);
 		else if($2 == 1)$$ = mn1(PLUS,$1);
@@ -195,11 +198,12 @@ r:	CHAR
 			}
 		}
 	| SCON r
-	={	$$ = mn2(RSCON,$2,$1); }
+	{	$$ = mn2(RSCON,$2,$1); }
 	| '^' r
-	={	$$ = mn1(CARAT,$2); }
+	{	$$ = mn1(CARAT,$2); }
 	| r '$'
-	={	i = mn0('\n');
+	{	int i,j,k;
+        	i = mn0('\n');
 		if(!divflg){
 			j = mn1(S2FINAL,-casecount);
 			k = mn2(RCAT,$1,j);
@@ -209,9 +213,9 @@ r:	CHAR
 		divflg = TRUE;
 		}
 	| '(' r ')'
-	={	$$ = $2; }
+	{	$$ = $2; }
 	|	NULLS
-	={	$$ = mn0(RNULLS); }
+	{	$$ = mn0(RNULLS); }
 	;
 %%
 int yylex(void){
