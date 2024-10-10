@@ -23,7 +23,7 @@ int gch(void);
 int mn2(int a,int d,int c);
 int mn1(int a,int d);
 int mn0(int a);
-void munput(char *t,int p);
+void munput(int t,char *p);
 int dupl(int n);
 void allprint(char c);
 void sect1dump(void);

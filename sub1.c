@@ -482,7 +482,7 @@ int mn0(int a)
 		error("Parse tree too big %s",(treesize == TREESIZE?"\nTry using %e num":""));
 	return(tptr++);
 	}
-void munput(char *t,int p)	/* implementation dependent */
+void munput(int t,char *p)	/* implementation dependent */
   {
 	register int i,j;
 	if(t == 'c'){
