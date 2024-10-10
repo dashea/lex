@@ -163,5 +163,6 @@ extern int scon;
 extern char *psave;
 
 extern int yyparse(void);
+extern void yyerror(char *s);
 
 #endif /* _LDEFS_H_ */
