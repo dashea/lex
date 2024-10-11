@@ -42,7 +42,7 @@ static void chd1(void){
 	fprintf(fout,"int yymorfg;\n");
 	fprintf(fout,"extern char *yysptr, yysbuf[];\n");
 	fprintf(fout,"int yytchar;\n");
-	fprintf(fout,"FILE *yyin ={stdin}, *yyout ={stdout};\n");
+	fprintf(fout,"FILE *yyin =NULL, *yyout =NULL;\n");
 	fprintf(fout,"extern int yylineno;\n");
 	fprintf(fout,"struct yysvf { \n");
 	fprintf(fout,"\tstruct yywork *yystoff;\n");
