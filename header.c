@@ -13,6 +13,7 @@ void phead1(void){
 
 static void chd1(void){
 	fprintf(fout,"# include \"stdio.h\"\n");
+        fprintf(fout,"# include <stdlib.h>\n");
 	if (ZCH>NCH)
 	fprintf(fout, "# define U(x) ((x)&0377)\n");
 	else
