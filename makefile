@@ -32,7 +32,7 @@ sub2.o: sub2.c ldefs.h sub1.h sub2.h
 header.o: header.c ldefs.h header.h
 	cc -c -O header.c
 
-once.o:
+once.o: once.c ldefs.h
 	cc -c -O once.c
 
 libln.a:
