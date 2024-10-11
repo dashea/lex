@@ -177,6 +177,7 @@ static void free2core(void){
 	free(left);
 	free(right);
 	free(parent);
+        free(treestrs);
 	free(nullstr);
 	free(state);
 	free(sname);

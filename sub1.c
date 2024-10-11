@@ -393,6 +393,28 @@ int gch(void){
 	if(c == '\n')yyline++;
 	return(c);
 	}
+int mn2_scon(int a, int d, char *c)
+	{
+	name[tptr] = a;
+	left[tptr] = d;
+        treestrs[tptr] = c;
+	parent[tptr] = 0;
+	nullstr[tptr] = 0;
+	switch(a){
+	case RSCON:
+		parent[d] = tptr;
+		nullstr[tptr] = nullstr[d];
+		break;
+# ifdef DEBUG
+	default:
+		warning("bad switch mn2 %d %d",a,d);
+		break;
+# endif
+		}
+	if(tptr > treesize)
+		error("Parse tree too big %s",(treesize == TREESIZE?"\nTry using %e num":""));
+	return(tptr++);
+        }
 int mn2(int a,int d,int c)
 	{
 	name[tptr] = a;
@@ -414,10 +436,6 @@ int mn2(int a,int d,int c)
 		if(nullstr[d] && nullstr[c])nullstr[tptr] = TRUE;
 		parent[d] = parent[c] = tptr;
 		break;
-	case RSCON:
-		parent[d] = tptr;
-		nullstr[tptr] = nullstr[d];
-		break;
 # ifdef DEBUG
 	default:
 		warning("bad switch mn2 %d %d",a,d);
@@ -428,10 +446,10 @@ int mn2(int a,int d,int c)
 		error("Parse tree too big %s",(treesize == TREESIZE?"\nTry using %e num":""));
 	return(tptr++);
 	}
-int mn1(int a,int d)
+int mn1_ccl(int a, char *d)
 	{
-	name[tptr] = a;
-	left[tptr] = d;
+        name[tptr] = a;
+        treestrs[tptr] = d;
 	parent[tptr] = 0;
 	nullstr[tptr] = 0;
 	switch(a){
@@ -439,6 +457,24 @@ int mn1(int a,int d)
 	case RNCCL:
 		if(slength(d) == 0) nullstr[tptr] = TRUE;
 		break;
+# ifdef DEBUG
+	default:
+		warning("bad switch mn1 %d %s",a,d);
+		break;
+# endif
+		}
+	if(tptr > treesize)
+		error("Parse tree too big %s",(treesize == TREESIZE?"\nTry using %e num":""));
+	return(tptr++);
+	}
+
+int mn1(int a,int d)
+	{
+	name[tptr] = a;
+	left[tptr] = d;
+	parent[tptr] = 0;
+	nullstr[tptr] = 0;
+	switch(a){
 	case STAR:
 	case QUEST:
 		nullstr[tptr] = TRUE;

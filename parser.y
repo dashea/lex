@@ -129,13 +129,13 @@ r:	CHAR
 			}
 		else
 			p = psave;
-		$$ = mn1(RCCL,p);
+		$$ = mn1_ccl(RCCL,p);
 		cclinter(1);
 		}
 	| CCL
-	{	$$ = mn1(RCCL,$1); }
+	{	$$ = mn1_ccl(RCCL,$1); }
 	| NCCL
-	{	$$ = mn1(RNCCL,$1); }
+	{	$$ = mn1_ccl(RNCCL,$1); }
 	| r '*'
 	{	$$ = mn1(STAR,$1); }
 	| r '+'
@@ -209,7 +209,7 @@ r:	CHAR
 			}
 		}
 	| SCON r
-	{	$$ = mn2(RSCON,$2,$1); }
+	{	$$ = mn2_scon(RSCON,$2,$1); }
 	| '^' r
 	{	$$ = mn1(CARAT,$2); }
 	| r '$'
@@ -260,7 +260,8 @@ int yylex(void){
 						right = calloc(treesize,sizeof(*right));
 						nullstr = calloc(treesize,sizeof(*nullstr));
 						parent = calloc(treesize,sizeof(*parent));
-						if(name == NULL || left == NULL || right == NULL || parent == NULL || nullstr == NULL)
+                                                treestrs = calloc(treesize,sizeof(*treestrs));
+						if(name == NULL || left == NULL || right == NULL || parent == NULL || nullstr == NULL || treestrs == NULL)
 							error("Too little core for parse tree");
 						return(freturn(DELIM));
 					case 'p': case 'P':	/* has overridden number of positions */

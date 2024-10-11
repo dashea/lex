@@ -41,7 +41,7 @@ void cfoll(int v)
 			else if(i == RCCL || i == RNCCL){	/* compress ccl list */
 				for(j=1; j<NCH;j++)
 					symbol[j] = (i==RNCCL);
-				p = left[v];
+				p = treestrs[v];
 				while(*p)
 					symbol[*p++] = (i == RCCL);
 				p = pcptr;
@@ -55,7 +55,7 @@ void cfoll(int v)
 				*pcptr++ = 0;
 				if(pcptr > pchar + pchlen)
 					error("Too many packed character classes");
-				left[v] = p;
+				treestrs[v] = p;
 				name[v] = RCCL;	/* RNCCL eliminated */
 # ifdef DEBUG
 				if(debug && *p){
@@ -186,7 +186,7 @@ static void first(int v)	/* calculate set of positions with v as root which can 
 			break;
 		case RSCON:
 			i = stnum/2 +1;
-			p = right[v];
+			p = treestrs[v];
 			while(*p)
 				if(*p++ == i){
 					first(left[v]);
@@ -254,7 +254,7 @@ void cgoto(void){
 			else switch(name[curpos]){
 			case RCCL:
 				tryit = TRUE;
-				q = left[curpos];
+				q = treestrs[curpos];
 				while(*q){
 					for(j=1;j<NCH;j++)
 						if(cindex[j] == *q)
@@ -339,7 +339,7 @@ static void nextstate(int s,int c)
 		j = name[curpos];
 		if(j < NCH && j == c
 		|| j == RSTR && c == right[curpos]
-		|| j == RCCL && member(c,left[curpos])){
+		|| j == RCCL && member(c,treestrs[curpos])){
 			f = foll[curpos];
 			number = *f;
 			newpos = f+1;

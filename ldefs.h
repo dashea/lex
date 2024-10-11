@@ -115,6 +115,7 @@ extern int *name;
 extern int *left;
 extern int *right;
 extern int *parent;
+extern char **treestrs;
 extern char *nullstr;
 extern int tptr;
 extern char pushc[TOKENSIZE];

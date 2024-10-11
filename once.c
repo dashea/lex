@@ -91,6 +91,7 @@ int *name;
 int *left;
 int *right;
 int *parent;
+char **treestrs;
 char *nullstr;
 int tptr;
 char pushc[TOKENSIZE];
