@@ -32,6 +32,7 @@ static void segviol(int signal);
 int main(int argc,char **argv)
   {
 	register int i;
+        errorf = stdout;
 # ifdef DEBUG
 	signal(SIGBUS,buserr);
 	signal(SIGSEGV,segviol);
