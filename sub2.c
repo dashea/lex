@@ -13,7 +13,7 @@ static void packtrans(int st,char *tch,int *tst,int cnt,int tryit);
 static void pstate(int s);
 static int member(int d,char *t);
 static void acompute(int s);
-static void rprint(char *a,int *s,int n);
+static void rprint(int *a,char *s,int n);
 static void shiftr(int *a, int n);
 static void upone(int *a,int n);
 static void bprint(char *a,char *s,int n);
@@ -891,7 +891,7 @@ void layout(void){
 	fprintf(fout,"0};\n");
 	return;
 	}
-static void rprint(char *a,int *s,int n)
+static void rprint(int *a,char *s,int n)
   {
 	register int i;
 	fprintf(fout,"block data\n");
