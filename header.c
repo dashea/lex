@@ -50,6 +50,7 @@ static void chd1(void){
 	fprintf(fout,"\tint *yystops;};\n");
 	fprintf(fout,"struct yysvf *yyestate;\n");
 	fprintf(fout,"extern struct yysvf yysvec[], *yybgin;\n");
+        fprintf(fout,"int yylex(void);\n");
 	}
 
 static void rhd1(void){

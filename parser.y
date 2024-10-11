@@ -253,7 +253,7 @@ int yylex(void){
 						lgate();
 						if(!ratfor)fprintf(fout,"# ");
 						fprintf(fout,"define YYNEWLINE %d\n",ctable['\n']);
-						if(!ratfor)fprintf(fout,"yylex(){\nint nstr; extern int yyprevious;\n");
+						if(!ratfor)fprintf(fout,"int yylex(){\nint nstr; extern int yyprevious;\n");
                                                 fprintf(fout,"if (!yyin) yyin=stdin;\n");
                                                 fprintf(fout,"if (!yyout) yyout=stdout;\n");
 						sectbegin = TRUE;
