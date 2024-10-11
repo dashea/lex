@@ -52,6 +52,12 @@ static void chd1(void){
 	fprintf(fout,"struct yysvf *yyestate;\n");
 	fprintf(fout,"extern struct yysvf yysvec[], *yybgin;\n");
         fprintf(fout,"int yylex(void);\n");
+        fprintf(fout,"int yylook(void);\n");
+        fprintf(fout,"int yywrap(void);\n");
+        fprintf(fout,"int yyback(int *,int);\n");
+        fprintf(fout,"int yyinput(void);\n");
+        fprintf(fout,"void yyoutput(int);\n");
+        fprintf(fout,"void yyunput(int);\n");
 	}
 
 static void rhd1(void){
