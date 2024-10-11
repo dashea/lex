@@ -1,4 +1,6 @@
 # include <stdio.h>
+int printable(int c);
+
 void allprint(char c)
   {
 	extern FILE *yyout;
@@ -30,7 +32,7 @@ void sprint(char *s)
 		allprint(*s++);
 	return;
 	}
-void printable(int c)
+int printable(int c)
 	{
 	return(040 < c && c < 0177);
 	}

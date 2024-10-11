@@ -1,3 +1,4 @@
+void yyunput(int);
 int yyless(int x)
 {
 extern char yytext[];
