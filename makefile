@@ -12,10 +12,10 @@ cp:	all
 	rm -f *.o libln.a lex y.tab.c
 
 lex: lmain.o y.tab.o sub1.o sub2.o header.o once.o
-	cc -i -s lmain.o y.tab.o sub1.o sub2.o header.o once.o -o lex
+	cc lmain.o y.tab.o sub1.o sub2.o header.o once.o -o lex
 
 smallex:
-	cc -DSMALL -n -s -O lmain.c y.tab.c sub1.c sub2.c header.c once.c -o smallex
+	cc -DSMALL -O lmain.c y.tab.c sub1.c sub2.c header.c once.c -o smallex
 
 y.tab.c: parser.y header.h sub1.h
 	yacc parser.y
