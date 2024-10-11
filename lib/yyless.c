@@ -9,7 +9,7 @@ lastch = yytext+yyleng;
 if (x>=0 && x <= yyleng)
 	ptr = x + yytext;
 else
-	ptr = x;
+	ptr = (char *)x;
 while (lastch > ptr)
 	yyunput(*--lastch);
 *lastch = 0;
