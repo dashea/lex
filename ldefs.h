@@ -90,6 +90,8 @@ extern int charc;
 
 # ifndef DEBUG
 # define freturn(s) s
+# else
+int freturn(int);
 # endif
 
 extern int sargc;
@@ -165,5 +167,7 @@ extern char *psave;
 
 extern int yyparse(void);
 extern void yyerror(char *s);
+
+extern int lineno;
 
 #endif /* _LDEFS_H_ */

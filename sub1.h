@@ -31,5 +31,7 @@ int dupl(int n);
 void allprint(char c);
 void sect1dump(void);
 void sect2dump(void);
+void strpt(char *s);
+int treedump(void);
 
 #endif /* _SUB1_H_ */

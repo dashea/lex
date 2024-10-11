@@ -239,7 +239,7 @@ int yylex(void){
 	static int iter;
 
 # ifdef DEBUG
-	yylval = {0};
+        memset(&yylval, 0, sizeof(yylval));
 # endif
 
 	if(sect == DEFSECTION) {		/* definitions section */

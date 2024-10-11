@@ -130,3 +130,5 @@ int pchlen = TOKENSIZE;
 int *verify, *advance, *stoff;
 int scon;
 char *psave;
+int lineno = 0;
+int yydebug = 0;

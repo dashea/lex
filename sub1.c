@@ -663,11 +663,11 @@ int treedump(void)
 				break;
 			case RCCL:
 				printf("ccl ");
-				strpt(left[t]);
+				strpt(treestrs[t]);
 				break;
 			case RNCCL:
 				printf("nccl ");
-				strpt(left[t]);
+				strpt(treestrs[t]);
 				break;
 			case DIV:
 				printf("/ %d %d",left[t],right[t]);
@@ -706,7 +706,7 @@ int treedump(void)
 				printf("new %d %d",left[t],right[t]);
 				break;
 			case RSCON:
-				p = right[t];
+				p = treestrs[t];
 				printf("start %s",sname[*p++-1]);
 				while(*p)
 					printf(", %s",sname[*p++-1]);
