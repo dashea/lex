@@ -55,15 +55,9 @@ int peek = '\n';	/* next input character */
 char *pushptr = pushc;
 char *slptr = slist;
 
-# if (unix || ibm)
-char *cname = "/usr/lib/lex/ncform";
-char *ratname = "/usr/lib/lex/nrform";
-# endif
+char *cname = CNAME_PATH;
+char *ratname = RATNAME_PATH;
 
-# ifdef gcos
-char *cname = "pounce/lexcform";
-char *ratname = "pounce/lexrform";
-# endif
 int ccount = 1;
 int casecount = 1;
 int aptr = 1;

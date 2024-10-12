@@ -65,6 +65,28 @@
 # define CCLSIZE 1000
 #endif
 
+/* Locations of the driver files */
+#if (unix || ibm)
+#ifndef CNAME_PATH
+#define CNAME_PATH "/usr/lib/lex/ncform"
+#endif
+
+#ifndef RATNAME_PATH
+#define RATNAME_PATH "/usr/lib/lex/nrform"
+#endif
+#endif
+
+#ifdef gcos
+#ifndef CNAME_PATH
+#define CNAME_PATH "pounce/lexcform"
+#endif
+
+#ifndef RATNAME_PATH
+#define RATNAME_PATH "pounce/lexrform"
+#endif
+#endif
+
+
 /* All of these values are configurable at runtime:
  * TREESIZE %e
  * NTRANS %a
