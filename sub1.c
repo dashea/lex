@@ -551,7 +551,9 @@ int dupl(int n)
 	switch(i){
 	case RNULLS:
 		return(mn0(i));
-	case RCCL: case RNCCL: case FINAL: case S1FINAL: case S2FINAL:
+	case RCCL: case RNCCL:
+                return(mn1_ccl(i,treestrs[n]));
+        case FINAL: case S1FINAL: case S2FINAL:
 		return(mn1(i,left[n]));
 	case STAR: case QUEST: case PLUS: case CARAT:
 		return(mn1(i,dupl(left[n])));
