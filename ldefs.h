@@ -2,7 +2,10 @@
 #define _LDEFS_H_
 
 # include <stdio.h>
+#ifndef PP
 # define PP 1
+#endif
+
 # ifdef unix
 
 # define CWIDTH 7
@@ -31,12 +34,44 @@
 # endif
 
 
+/* Used for both the size of pushc (the unpush array) and the maximum size of packed character classes.
+ * Packed character class size can be overridden with %k, the size of pushc cannot */
+#ifndef TOKENSIZE
 # define TOKENSIZE 1000
+#endif
+
+/* Size of def and subs arrays, not configurable */
+#ifndef DEFSIZE
 # define DEFSIZE 40
+#endif
+
+/* Size of dchar array, not configurable */
+#ifndef DEFCHAR
 # define DEFCHAR 1000
+#endif
+
+/* Size of schar array, not configurable */
+#ifndef STARTCHAR
 # define STARTCHAR 100
+#endif
+
+/* Size of sname array, not configurable */
+#ifndef STARTSIZE
 # define STARTSIZE 256
+#endif
+
+/* Size of ccl array, not configurable */
+#ifndef CCLSIZE
 # define CCLSIZE 1000
+#endif
+
+/* All of these values are configurable at runtime:
+ * TREESIZE %e
+ * NTRANS %a
+ * NSTATES %n
+ * MAXPOS %p
+ * NOUTPUT %o
+ */
 # ifdef SMALL
 # define TREESIZE 600
 # define NTRANS 1500
@@ -52,8 +87,11 @@
 # define NTRANS 2000
 # define NOUTPUT 3000
 # endif
+
+/* Size of extra array, not configurable */
+#ifndef NACTIONS
 # define NACTIONS 100
-# define ALITTLEEXTRA 30
+#endif
 
 # define RCCL NCH+90
 # define RNCCL NCH+91
