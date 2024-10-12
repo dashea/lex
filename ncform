@@ -8,6 +8,9 @@ char *yysptr = yysbuf;
 int *yyfnd;
 extern struct yysvf *yyestate;
 int yyprevious = YYNEWLINE;
+void allprint(char);
+void sprint(char *);
+
 int yylook(void){
 	register struct yysvf *yystate, **lsp;
 	register struct yywork *yyt;
