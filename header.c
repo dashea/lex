@@ -58,6 +58,7 @@ static void chd1(void){
         fprintf(fout,"int yyinput(void);\n");
         fprintf(fout,"void yyoutput(int);\n");
         fprintf(fout,"void yyunput(int);\n");
+        fprintf(fout,"int yyless(int);\n");
 	}
 
 static void rhd1(void){
