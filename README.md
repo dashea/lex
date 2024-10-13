@@ -5,7 +5,11 @@ This code was taken from Version 7 Unix as archived by [The Unix Heritage Societ
 
 ## y tho
 
-Felt like it.
+I fell down a bit of a rabbit hole while investigating how to bootstrap [flex](https://github.com/westes/flex/).
+flex has been the popular non-commercial implementation of lex since the 4.4 BSD days, but the scanner for flex is written in flex, creating a chicken and egg problem if you want to start from scratch.
+I thought Unix necromancy was a more interesting approach than replacing scan.l with a hand-written lexer.
+
+See [flex-bootstrapping](flex-bootstrapping/README.md) for more on my findings on compiling flex without starting with flex.
 
 ## License etc.
 
