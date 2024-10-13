@@ -30,7 +30,7 @@ mv y.tab.h parse.h
 ./mkskel.sh . m4 "$FLEX_VERSION" > skel.c
 
 # Create a config.h
-# Most of what's created by autoconf is unnecessary for has a reasonable fallback
+# Most of what's created by autoconf is unnecessary or has a reasonable fallback
 { echo '#define M4 "m4"'
   echo "#define VERSION \"$FLEX_VERSION\""
   echo '#define HAVE_LIMITS_H 1'
