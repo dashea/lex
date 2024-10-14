@@ -94,3 +94,13 @@ Once you have a working flex, however, [bison-bootstrap](https://gitlab.com/giom
 The bootstrap.sh script in this directory goes through the steps needed to build flex without a prior version of flex or a generated scanner.
 The autoconf scripts are bypassed as well, to avoid needing to deal with the check for flex or whatever other crap that stuff pulls in.
 The end result is a binary `./flex/src/flex` using a lex-generated scanner that can be used to re-generated scan.c and compile a flex-hosted flex.
+
+### Bugs
+
+The bootstrapped flex, when parsing the unmodified scan.l, crashes.
+Not all the time, but pretty frequently, and I'm not sure what variables I changed between the crashing and not crashing states.
+The crash happens in the `while(yyback((*lsp)->yystops,-*yyfnd) != 1 && lsp > yylstate)` in yylook() after flex has matched the final "%%" line, and, honestly, damned if I can unravel it.
+
+What I did find is that if section is 3 is shorter, flex works fine.
+Like, if you just take out all the whitespace in the C functions, it works.
+The threshold seems to be 380 characters, which doesn't make a lot of sense, but there you go: a workaround.
